@@ -1,0 +1,22 @@
+kadher_rest_homepage:
+    path:     /
+    defaults: { _controller: KadherRestBundle:Default:index }
+
+kadher_rest_test:
+    path:     /test
+    defaults: { _controller: KadherRestBundle:Default:test }
+
+
+kadher_rest_verify_number:
+    path:     /verify-number/{number}
+    defaults: { _controller: KadherRestBundle:Default:verifyNumber }
+
+
+kadher_rest_verify_email:
+    path:     /verify-email/{email}
+    defaults: { _controller: KadherRestBundle:Default:verifyEmail }
+
+
+kadher_rest_sign_up:
+    path:     /sign-up
+    defaults: { _controller: KadherRestBundle:Default:signUp }

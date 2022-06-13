@@ -1,0 +1,3 @@
+kadher_cigogne_homepage:
+    path:     /
+    defaults: { _controller: KadherCigogneBundle:Default:index }

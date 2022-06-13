@@ -1,0 +1,17 @@
+{% block subject %}Reinitialisation de mot de passe{% endblock %}
+
+{% block body_text %}
+{% autoescape false %}
+Bonjour {{ user.nom }} !
+
+Bienvenue sur Attone.net. {{ confirmationUrl }}
+
+Greetings,
+the App team
+{% endautoescape %}
+{% endblock %}
+
+{% block body_html %}
+
+{% include 'email/reset.html.twig' %}
+{% endblock %}

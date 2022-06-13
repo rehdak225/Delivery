@@ -1,0 +1,17 @@
+{% block subject %}Bienvenue sur La Cigogne{% endblock %}
+
+{% block body_text %}
+{% autoescape false %}
+Bonjour {{ user.nom }} !
+
+Bienvenue sur La Cigogne. {{ confirmationUrl }}
+
+Greetings,
+the App team
+{% endautoescape %}
+{% endblock %}
+
+{% block body_html %}
+
+{% include 'email/register.html.twig' %}
+{% endblock %}
