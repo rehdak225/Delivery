@@ -43,7 +43,20 @@ class User extends BaseUser
      */
     private $numero;
 
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="latitude", type="string", length=255)
+     */
+    private $latitude;
 
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="longitude", type="string", length=255)
+     */
+    private $longitude;
 
 
     public function __construct()
@@ -135,5 +148,52 @@ class User extends BaseUser
     {
         return $this->numero;
     }
-}
 
+    /**
+     * Set latitude
+     *
+     * @param string $latitude
+     *
+     * @return User
+     */
+    public function setLatitude($latitude)
+    {
+        $this->latitude = $latitude;
+
+        return $this;
+    }
+
+    /**
+     * Get latitude
+     *
+     * @return string
+     */
+    public function getLatitude()
+    {
+        return $this->latitude;
+    }
+
+    /**
+     * Set longitude
+     *
+     * @param string $longitude
+     *
+     * @return User
+     */
+    public function setLongitude($longitude)
+    {
+        $this->longitude = $longitude;
+
+        return $this;
+    }
+
+    /**
+     * Get longitude
+     *
+     * @return string
+     */
+    public function getLongitude()
+    {
+        return $this->longitude;
+    }
+}

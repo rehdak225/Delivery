@@ -20,3 +20,23 @@ kadher_rest_verify_email:
 kadher_rest_sign_up:
     path:     /sign-up
     defaults: { _controller: KadherRestBundle:Default:signUp }
+
+
+kadher_rest_sign_in:
+    path:     /sign-in
+    defaults: { _controller: KadherRestBundle:Default:signIn }
+
+
+kadher_rest_reset_pass:
+    path:     /reset-pass/{email}/{code}
+    defaults: { _controller: KadherRestBundle:Default:resetPass }
+
+
+kadher_rest_reset_pass_done:
+    path:     /reset-pass-done/{email}/{pass}
+    defaults: { _controller: KadherRestBundle:Default:resetPassDone }
+
+
+kadher_rest_get_agence:
+    path:     /get-agence/{id}
+    defaults: { _controller: KadherRestBundle:Default:getAgence }

@@ -72,7 +72,7 @@ class DefaultController extends Controller
         $myUser->setEmail($request->get('email'));
         $myUser->setUsername($request->get('email'));
         $myUser->setEnabled(false);
-        $myUser->setPassword($this->container->get('security.encoder_factory')->getEncoder($myUser)->encodePassword($request->get('password'), $myUser->getSalt()));
+        $myUser->setPassword(sha1($request->get('password')));
 
           // Create token
         $token = sha1(uniqid(mt_rand(), true)); // Or whatever you prefer to generate a token
@@ -83,5 +83,95 @@ class DefaultController extends Controller
 
         return true;
       
+    }
+
+
+    /**
+     * @View(
+     *     statusCode = 201,
+     *     serializerGroups = {"POST_CREATE"}
+     * )
+     */
+    public function signInAction(Request $request){
+
+
+      $user = $this->getDoctrine()->getManager()->getRepository('KadherCigogneBundle:User')->findMyUser1($request->get('email'));
+      if($user == null){
+        return false;
+      }else{
+        $encoded_pass = sha1($request->get('mot_de_passe'));
+        if($encoded_pass != $user[0]["password"]) {
+          return false;
+        }else{
+                return $user[0];
+        }
+      }
+    }
+
+
+    /**
+     * @View(
+     *     statusCode = 201,
+     *     serializerGroups = {"GET"}
+     * )
+     */
+    public function resetPassDoneAction($email,$pass){
+        $user = $this->getDoctrine()->getManager()->getRepository("KadherCigogneBundle:User")->findByEmail($email);
+        if($user == null){
+          return false;
+        }else{
+          $user[0]->setPassword(sha1($pass));
+          $em = $this->getDoctrine()->getManager();
+          $em->persist($user[0]);
+          $em->flush();
+          return true;
+        }
+    }
+    
+    /**
+     * @View(
+     *     statusCode = 201,
+     *     serializerGroups = {"GET"}
+     * )
+     */
+    public function resetPassAction($email,$code){
+
+      $user = null;
+      $user = $this->getDoctrine()->getManager()->getRepository('KadherCigogneBundle:User')->isEmailExist1($email);
+      
+      if($user == null){
+        return false;
+      }else{
+          
+        
+        $from = array('ehuis1@student.iugb.edu.ci' => 'La Cigogne');
+        $message = (new \Swift_Message('Nouveau mot de passe'))
+        ->setFrom($from)
+        ->setTo('ehuis1@student.iugb.edu.ci')
+        ->setBody(
+            $this->renderView(
+                // templates/emails/registration.html.twig
+                'email/livraison.html.twig',
+                ['code'=>$code]
+            ),
+            'text/html'
+        )
+        ;
+
+          $this->get('mailer')->send($message);
+        return true;
+      }
+    }
+
+
+    /**
+     * @View(
+     *     statusCode = 201,
+     *     serializerGroups = {"GET"}
+     * )
+     */
+    public function getAgenceAction($id){
+        $agences = $this->getDoctrine()->getManager()->getRepository("KadherCigogneBundle:Agence")->findAgences($id);
+        return $agences;
     }
 }

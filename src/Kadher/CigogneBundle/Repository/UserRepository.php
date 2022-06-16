@@ -27,4 +27,38 @@ class UserRepository extends \Doctrine\ORM\EntityRepository
     $qb->where('u.email = :email')->setParameter('email', $email);
     return $qb->getQuery()->getResult();
   }
+
+
+  public function isEmailExist1($email){
+    $qb = $this->_em->createQueryBuilder();
+
+    $qb->select('u')->from('KadherCigogneBundle:User','u');
+    $qb->where('u.email = :email')->setParameter('email', $email);
+    if($qb->getQuery()->getOneOrNullResult() != null)
+    return $qb->getQuery()->getSingleResult();
+    else 
+    return null;
+  }
+
+
+  public function findMyUser($email){
+    $qb = $this->_em->createQueryBuilder();
+
+    $qb->select('u')->from('KadherCigogneBundle:User','u');
+    $qb->where('u.email = :email')->setParameter('email', $email);
+    return $qb->getQuery()->getArrayResult();
+  }
+
+
+
+  public function findMyUser1($email){
+    $qb = $this->_em->createQueryBuilder();
+
+    $qb->select('u')->from('KadherCigogneBundle:User','u');
+    $qb->where('u.email = :email')->setParameter('email', $email);
+    if($qb->getQuery()->getResult() == null)
+      return null;
+    else
+      return $qb->getQuery()->getArrayResult();
+  }
 }
